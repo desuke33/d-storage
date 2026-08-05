@@ -1,6 +1,7 @@
 /* =========================================================
    d-storage.me  —  共通スタイル
-   コンセプト: 白基調 × 優雅な青 × 透明感(グラスモーフィズム)
+   コンセプト: 水槽(アクアリウム) × 白基調 × 優雅な青 × 大胆な余白
+   透明感のガラス面を、水中を泳ぐ魚が通り抜けていく設計。
    参考: Brittany Chiang(1ページ母艦) × TAMURA(サイズ固定の画像タイル)
    ========================================================= */
 
@@ -13,21 +14,25 @@
   --blue-mist:   #7dd3fc;   /* 淡い水色 */
 
   /* ベース（白） */
-  --bg:          #f4f9ff;   /* ほんのり青みのある白背景 */
+  --bg:          #f2f9ff;   /* ほんのり青みのある白背景 */
   --surface:     rgba(255, 255, 255, 0.55); /* 透明感のあるガラス面 */
-  --surface-strong: rgba(255, 255, 255, 0.75);
-  --border:      rgba(30, 99, 208, 0.18);
+  --surface-strong: rgba(255, 255, 255, 0.72);
+  --border:      rgba(30, 99, 208, 0.16);
 
   /* テキスト */
   --text:        #16283f;   /* 濃紺グレー */
   --text-soft:   #52708f;   /* 補助テキスト */
 
   /* レイアウト */
-  --tile-size:   260px;     /* タイルの基準幅（固定・統一感の要） */
-  --radius:      18px;
-  --shadow:      0 8px 30px rgba(11, 61, 145, 0.10);
-  --shadow-hover:0 16px 44px rgba(11, 61, 145, 0.20);
-  --maxw:        1080px;
+  --tile-size:   240px;     /* タイルの基準幅（固定・統一感の要） */
+  --radius:      20px;
+  --shadow:      0 10px 40px rgba(11, 61, 145, 0.10);
+  --shadow-hover:0 22px 60px rgba(11, 61, 145, 0.20);
+  --maxw:        1120px;
+
+  /* 余白のリズム（大胆な空白の基準） */
+  --space-lg:    clamp(80px, 14vw, 200px);
+  --space-md:    clamp(48px, 8vw, 96px);
 }
 
 /* ---- リセット ---- */
@@ -38,58 +43,127 @@ body {
   font-family: "Helvetica Neue", "Hiragino Kaku Gothic ProN",
                "Yu Gothic", "Meiryo", system-ui, sans-serif;
   color: var(--text);
-  line-height: 1.7;
-  /* 透明感の土台：青のグラデーション背景 */
+  line-height: 1.8;
+  /* 透明感の土台：水面のような青のグラデーション背景 */
   background:
-    radial-gradient(1200px 800px at 15% -10%, rgba(125,211,252,0.35), transparent 60%),
-    radial-gradient(1000px 700px at 110% 10%, rgba(30,99,208,0.18), transparent 55%),
+    radial-gradient(1300px 900px at 12% -12%, rgba(125,211,252,0.38), transparent 60%),
+    radial-gradient(1100px 800px at 112% 6%, rgba(30,99,208,0.16), transparent 55%),
+    radial-gradient(900px 900px at 50% 118%, rgba(56,189,248,0.14), transparent 60%),
     var(--bg);
   background-attachment: fixed;
   min-height: 100vh;
+  overflow-x: hidden;
 }
 
 a { color: var(--blue); text-decoration: none; }
 a:hover { color: var(--blue-deep); }
 
-/* ---- 中央コンテナ ---- */
-.wrap {
-  max-width: var(--maxw);
-  margin: 0 auto;
-  padding: 0 24px;
+/* =========================================================
+   アクアリウム層：魚・泡が泳ぐ、コンテンツの後ろのレイヤー
+   ========================================================= */
+.aquarium {
+  position: fixed;
+  inset: 0;
+  z-index: 0;               /* コンテンツより後ろ、背景より前 */
+  pointer-events: none;     /* 操作の邪魔をしない */
+  overflow: hidden;
+}
+.fish {
+  position: fixed;
+  top: 0;
+  left: 0;
+  will-change: transform;
+  opacity: 0;               /* JSで泳ぎ始めるまで隠す */
+  transition: opacity 1.2s ease;
+}
+.fish svg { display: block; }
+.fish.is-swimming { opacity: 1; }
+
+.bubble {
+  position: fixed;
+  bottom: -40px;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 35% 30%, rgba(255,255,255,0.9), rgba(125,211,252,0.35) 60%, rgba(125,211,252,0) 72%);
+  border: 1px solid rgba(255,255,255,0.5);
+  will-change: transform, opacity;
+  opacity: 0;
 }
 
-/* ---- ヘッダー / ヒーロー ---- */
+/* ---- 中央コンテナ（コンテンツは魚より前に） ---- */
+.wrap {
+  position: relative;
+  z-index: 1;
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: 0 28px;
+}
+
+/* ---- ヘッダー / ヒーロー（大胆な余白でひらく） ---- */
 .hero {
-  padding: 80px 0 40px;
+  padding: var(--space-lg) 0 var(--space-md);
   text-align: center;
 }
 .hero .handle {
-  font-size: clamp(2.4rem, 6vw, 3.6rem);
+  font-size: clamp(3rem, 9vw, 5.5rem);
   font-weight: 800;
-  letter-spacing: 0.02em;
-  margin: 0 0 10px;
+  letter-spacing: 0.03em;
+  line-height: 1.05;
+  margin: 0 0 24px;
   background: linear-gradient(120deg, var(--blue-deep), var(--blue-sky));
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
 }
 .hero .tagline {
-  font-size: clamp(1rem, 2.4vw, 1.15rem);
+  font-size: clamp(1.02rem, 2.2vw, 1.2rem);
   color: var(--text-soft);
   margin: 0 auto;
-  max-width: 640px;
+  max-width: 560px;
+  letter-spacing: 0.01em;
 }
 
-/* ---- タイル・グリッド（サイズ固定で統一感） ---- */
+/* ---- セクションの見出し（母艦のインデックス） ---- */
+.section-intro {
+  text-align: center;
+  margin: 0 auto var(--space-md);
+  max-width: 640px;
+}
+.section-intro .eyebrow {
+  display: inline-block;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--blue-sky);
+  margin: 0 0 14px;
+}
+.section-intro h2 {
+  font-size: clamp(1.4rem, 4vw, 2rem);
+  font-weight: 700;
+  margin: 0;
+  color: var(--blue-deep);
+}
+
+/* ---- タイル・グリッド（サイズ固定＝正方形の統一感） ---- */
 .tiles {
   list-style: none;
   padding: 0;
-  margin: 40px 0 80px;
+  margin: 0 auto var(--space-lg);
   display: grid;
   /* 固定幅タイルを中央寄せで自動折返し（拡張しても崩れない） */
   grid-template-columns: repeat(auto-fit, var(--tile-size));
   justify-content: center;
-  gap: 22px;
+  gap: clamp(28px, 5vw, 56px);      /* 余白を大胆に */
+}
+.tiles li {
+  opacity: 0;
+  transform: translateY(24px);
+}
+.tiles li.is-visible {
+  opacity: 1;
+  transform: none;
+  transition: opacity .7s ease, transform .7s cubic-bezier(.2,.7,.2,1);
 }
 
 /* タイル＝正方形の写真フレームのみ（キャプションは枠外） */
@@ -101,11 +175,12 @@ a:hover { color: var(--blue-deep); }
   border-radius: var(--radius);
   box-shadow: var(--shadow);
   overflow: hidden;
-  transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+  background: var(--surface);
+  transition: transform .3s ease, box-shadow .3s ease, border-color .3s ease;
 }
 .tile:hover,
 .tile:focus-visible {
-  transform: translateY(-6px);
+  transform: translateY(-8px);
   box-shadow: var(--shadow-hover);
   border-color: var(--blue-sky);
   outline: none;
@@ -117,7 +192,7 @@ a:hover { color: var(--blue-deep); }
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform .35s ease;
+  transition: transform .4s ease;
 }
 .tile:hover img { transform: scale(1.05); }  /* ホバーで軽くズーム */
 
@@ -125,10 +200,10 @@ a:hover { color: var(--blue-deep); }
 .tile-label {
   display: block;
   text-align: center;
-  margin-top: 10px;
-  font-size: 0.9rem;
+  margin-top: 14px;
+  font-size: 0.92rem;
   font-weight: 600;
-  letter-spacing: 0.02em;
+  letter-spacing: 0.04em;
   color: var(--text-soft);
 }
 
@@ -141,7 +216,7 @@ a:hover { color: var(--blue-deep); }
 /* ---- フッター ---- */
 .site-footer {
   text-align: center;
-  padding: 40px 0 60px;
+  padding: var(--space-md) 0 var(--space-md);
   color: var(--text-soft);
   font-size: 0.85rem;
 }
@@ -150,7 +225,7 @@ a:hover { color: var(--blue-deep); }
    下層ページ（pages/*.html）共通
    ========================================================= */
 .page-header {
-  padding: 60px 0 20px;
+  padding: var(--space-md) 0 24px;
 }
 .back-link {
   display: inline-flex;
@@ -158,16 +233,16 @@ a:hover { color: var(--blue-deep); }
   gap: 6px;
   font-size: 0.9rem;
   color: var(--text-soft);
-  margin-bottom: 20px;
+  margin-bottom: 24px;
 }
 .back-link:hover { color: var(--blue); }
 
 .page-title {
-  font-size: clamp(1.8rem, 5vw, 2.6rem);
-  margin: 0 0 8px;
+  font-size: clamp(2rem, 6vw, 3rem);
+  margin: 0 0 12px;
   color: var(--blue-deep);
 }
-.page-lead { color: var(--text-soft); margin: 0; max-width: 640px; }
+.page-lead { color: var(--text-soft); margin: 0; max-width: 620px; }
 
 .card {
   background: var(--surface-strong);
@@ -176,8 +251,8 @@ a:hover { color: var(--blue-deep); }
   border: 1px solid var(--border);
   border-radius: var(--radius);
   box-shadow: var(--shadow);
-  padding: 28px;
-  margin: 20px 0;
+  padding: 32px;
+  margin: 24px 0;
 }
 .card h3 { margin-top: 0; color: var(--blue-deep); }
 
@@ -186,18 +261,18 @@ a:hover { color: var(--blue-deep); }
   color: var(--text-soft);
   border-left: 3px solid var(--blue-sky);
   padding-left: 12px;
-  margin: 24px 0;
+  margin: 28px 0 var(--space-md);
 }
 
 /* ---- レスポンシブ ---- */
 @media (max-width: 560px) {
   :root { --tile-size: 100%; }
-  .tiles { grid-template-columns: 1fr; }
-  .hero { padding: 56px 0 28px; }
+  .tiles { grid-template-columns: 1fr; gap: 40px; }
 }
 
 /* ---- アクセシビリティ：動きを減らす設定を尊重 ---- */
 @media (prefers-reduced-motion: reduce) {
   * { transition: none !important; scroll-behavior: auto !important; }
+  .aquarium { display: none; }         /* 魚・泡は表示しない */
+  .tiles li { opacity: 1; transform: none; }
 }
-
