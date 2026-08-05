@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" width="800" height="800" role="img" aria-label="積読：水底に積み上がった本のイラスト">
+  <defs>
+    <linearGradient id="water" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#bfe6ff"/>
+      <stop offset="0.55" stop-color="#7dc6f5"/>
+      <stop offset="1" stop-color="#2f79c9"/>
+    </linearGradient>
+    <linearGradient id="sand" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#eaf6ff"/>
+      <stop offset="1" stop-color="#cbe6fb"/>
+    </linearGradient>
+    <linearGradient id="ray" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffffff" stop-opacity="0.55"/>
+      <stop offset="1" stop-color="#ffffff" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+
+  <!-- 水中の背景 -->
+  <rect width="800" height="800" fill="url(#water)"/>
+
+  <!-- 光の筋（水面から差し込む光） -->
+  <g opacity="0.8">
+    <polygon points="120,0 220,0 150,520 90,520" fill="url(#ray)"/>
+    <polygon points="470,0 540,0 520,560 430,560" fill="url(#ray)"/>
+    <polygon points="640,0 700,0 720,480 640,480" fill="url(#ray)"/>
+  </g>
+
+  <!-- 泡 -->
+  <g fill="#ffffff" opacity="0.7">
+    <circle cx="640" cy="180" r="16"/>
+    <circle cx="600" cy="120" r="9"/>
+    <circle cx="150" cy="250" r="12"/>
+    <circle cx="120" cy="180" r="7"/>
+    <circle cx="700" cy="300" r="8"/>
+  </g>
+
+  <!-- 砂地 -->
+  <path d="M0 640 Q200 600 400 640 T800 640 L800 800 L0 800 Z" fill="url(#sand)"/>
+
+  <!-- 積み上がった本たち（積読） -->
+  <g stroke="#0b3d91" stroke-width="6" stroke-linejoin="round">
+    <!-- 1冊目（下） -->
+    <rect x="210" y="560" width="380" height="66" rx="8" fill="#1e63d0"/>
+    <rect x="210" y="560" width="40"  height="66" fill="#0b3d91"/>
+    <line x1="270" y1="576" x2="560" y2="576" stroke="#bfe6ff" stroke-width="4"/>
+    <line x1="270" y1="610" x2="560" y2="610" stroke="#bfe6ff" stroke-width="4"/>
+
+    <!-- 2冊目 -->
+    <rect x="240" y="498" width="360" height="62" rx="8" fill="#38bdf8"/>
+    <rect x="560" y="498" width="40"  height="62" fill="#1e63d0"/>
+    <line x1="270" y1="530" x2="540" y2="530" stroke="#ffffff" stroke-width="4"/>
+
+    <!-- 3冊目（少しずれて積む＝積読らしさ） -->
+    <rect x="200" y="436" width="360" height="62" rx="8" fill="#7dd3fc"/>
+    <rect x="200" y="436" width="40"  height="62" fill="#38bdf8"/>
+    <line x1="260" y1="468" x2="520" y2="468" stroke="#0b3d91" stroke-width="4" opacity="0.5"/>
+
+    <!-- 4冊目（一番上） -->
+    <rect x="270" y="378" width="300" height="58" rx="8" fill="#ffffff"/>
+    <rect x="270" y="378" width="36"  height="58" fill="#7dd3fc"/>
+    <line x1="330" y1="400" x2="540" y2="400" stroke="#1e63d0" stroke-width="4" opacity="0.6"/>
+    <line x1="330" y1="418" x2="500" y2="418" stroke="#1e63d0" stroke-width="4" opacity="0.4"/>
+  </g>
+
+  <!-- 本のまわりを泳ぐ小さな魚 -->
+  <g aria-hidden="true">
+    <g transform="translate(150 430)">
+      <path d="M40 18C40 9 31 3 20 3S0 9 0 18s9 15 20 15 20-6 20-15z" fill="#0b3d91"/>
+      <path d="M40 18c5-4 9-6 14-7-3 4-3 11 0 15-5-1-9-4-14-8z" fill="#0b3d91"/>
+      <circle cx="12" cy="15" r="3" fill="#fff"/>
+    </g>
+  </g>
+</svg>
