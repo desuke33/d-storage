@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>だいすけ | d-storage</title>
+  <meta name="description" content="だいすけの個人サイト。体験・学習・好きなもの・信じるものを綴る、名刺代わりの母艦ページ。">
+
+  <!-- OGP（SNS共有時の見た目） -->
+  <meta property="og:title" content="だいすけ | d-storage">
+  <meta property="og:description" content="体験・学習・好きなもの・信じるものを綴る個人サイト。">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://d-storage.com/">
+  <meta property="og:image" content="https://d-storage.com/assets/ogp.svg">
+
+  <!-- AI向け入口の明示 -->
+  <link rel="alternate" type="text/plain" href="/llms.txt" title="AI向け自己紹介 (llms.txt)">
+
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/css/style.css">
+
+  <!-- 構造化データ：AI・検索に「だいすけとは誰か」を機械可読で伝える -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "だいすけ",
+    "alternateName": "daisuke",
+    "url": "https://d-storage.com/",
+    "description": "体験・学習・好きなもの・信じるものを表現する個人サイトの運営者。",
+    "sameAs": ["https://github.com/desuke33"]
+  }
+  </script>
+</head>
+<body>
+  <div class="wrap">
+
+    <header class="hero">
+      <h1 class="handle">だいすけ</h1>
+      <p class="tagline">
+        私の体験・学習・好きなもの・信じるものを置いておく場所。<br>
+        ここが母艦。すべてはこの1枚から辿れます。
+      </p>
+    </header>
+
+    <!-- 7枚のタイル（画像リンク）。増やす時はこの <li> を複製するだけ -->
+    <main>
+      <ul class="tiles">
+
+        <li>
+          <a class="tile" href="/pages/experience.html">
+            <img src="/images/tiles/experience.svg" alt="体験のページへ。これまで経験してきたことを綴ります。">
+            <span class="caption">
+              <h2>体験</h2>
+              <p>これまで歩いてきた道のり</p>
+            </span>
+          </a>
+        </li>
+
+        <li>
+          <a class="tile" href="/pages/learning.html">
+            <img src="/images/tiles/learning.svg" alt="学習のページへ。学んできたこと・学び中のことを記録します。">
+            <span class="caption">
+              <h2>学習</h2>
+              <p>学んだこと、学び続けていること</p>
+            </span>
+          </a>
+        </li>
+
+        <li>
+          <a class="tile" href="/pages/favorites.html">
+            <img src="/images/tiles/favorites.svg" alt="好きなもののページへ。心惹かれるものを集めます。">
+            <span class="caption">
+              <h2>好きなもの</h2>
+              <p>心が動くもの、偏愛するもの</p>
+            </span>
+          </a>
+        </li>
+
+        <li>
+          <a class="tile" href="/pages/beliefs.html">
+            <img src="/images/tiles/beliefs.svg" alt="信じるもののページへ。大切にしている価値観を書きます。">
+            <span class="caption">
+              <h2>信じるもの</h2>
+              <p>大切にしている価値観</p>
+            </span>
+          </a>
+        </li>
+
+        <li>
+          <a class="tile" href="https://github.com/desuke33" target="_blank" rel="noopener">
+            <img src="/images/tiles/github.svg" alt="GitHubのプロフィールへ（外部リンク）。制作物やコードの活動記録。">
+            <span class="caption">
+              <h2>GitHub</h2>
+              <p>つくったもの・活動の記録</p>
+            </span>
+          </a>
+        </li>
+
+        <li>
+          <a class="tile" href="/pages/contact.html">
+            <img src="/images/tiles/contact.svg" alt="連絡先のページへ。各種SNSや連絡方法を掲載。">
+            <span class="caption">
+              <h2>連絡先</h2>
+              <p>各種リンク・ご連絡はこちら</p>
+            </span>
+          </a>
+        </li>
+
+        <li>
+          <a class="tile tile--ai" href="/llms.txt">
+            <img src="/images/tiles/ai.svg" alt="AI向け自己紹介 llms.txt へ。AIエージェント用の入口。">
+            <span class="caption">
+              <h2>AI向け入口</h2>
+              <p>llms.txt — AIのための自己紹介</p>
+            </span>
+          </a>
+        </li>
+
+      </ul>
+    </main>
+
+    <footer class="site-footer">
+      <p>&copy; <span id="year">2026</span> だいすけ / d-storage.com</p>
+    </footer>
+
+  </div>
+
+  <script src="/js/main.js"></script>
+</body>
+</html>

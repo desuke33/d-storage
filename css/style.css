@@ -1,0 +1,204 @@
+/* =========================================================
+   d-storage.com  —  共通スタイル
+   コンセプト: 白基調 × 優雅な青 × 透明感(グラスモーフィズム)
+   参考: Brittany Chiang(1ページ母艦) × TAMURA(サイズ固定の画像タイル)
+   ========================================================= */
+
+/* ---- テーマ変数（色・サイズはここを変えれば全体に反映） ---- */
+:root {
+  /* 差し色：深い青 / 水色 */
+  --blue-deep:   #0b3d91;   /* 深い青 */
+  --blue:        #1e63d0;   /* 標準の青 */
+  --blue-sky:    #38bdf8;   /* 水色 */
+  --blue-mist:   #7dd3fc;   /* 淡い水色 */
+
+  /* ベース（白） */
+  --bg:          #f4f9ff;   /* ほんのり青みのある白背景 */
+  --surface:     rgba(255, 255, 255, 0.55); /* 透明感のあるガラス面 */
+  --surface-strong: rgba(255, 255, 255, 0.75);
+  --border:      rgba(30, 99, 208, 0.18);
+
+  /* テキスト */
+  --text:        #16283f;   /* 濃紺グレー */
+  --text-soft:   #52708f;   /* 補助テキスト */
+
+  /* レイアウト */
+  --tile-size:   260px;     /* タイルの基準幅（固定・統一感の要） */
+  --radius:      18px;
+  --shadow:      0 8px 30px rgba(11, 61, 145, 0.10);
+  --shadow-hover:0 16px 44px rgba(11, 61, 145, 0.20);
+  --maxw:        1080px;
+}
+
+/* ---- リセット ---- */
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  font-family: "Helvetica Neue", "Hiragino Kaku Gothic ProN",
+               "Yu Gothic", "Meiryo", system-ui, sans-serif;
+  color: var(--text);
+  line-height: 1.7;
+  /* 透明感の土台：青のグラデーション背景 */
+  background:
+    radial-gradient(1200px 800px at 15% -10%, rgba(125,211,252,0.35), transparent 60%),
+    radial-gradient(1000px 700px at 110% 10%, rgba(30,99,208,0.18), transparent 55%),
+    var(--bg);
+  background-attachment: fixed;
+  min-height: 100vh;
+}
+
+a { color: var(--blue); text-decoration: none; }
+a:hover { color: var(--blue-deep); }
+
+/* ---- 中央コンテナ ---- */
+.wrap {
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* ---- ヘッダー / ヒーロー ---- */
+.hero {
+  padding: 80px 0 40px;
+  text-align: center;
+}
+.hero .handle {
+  font-size: clamp(2.4rem, 6vw, 3.6rem);
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  margin: 0 0 10px;
+  background: linear-gradient(120deg, var(--blue-deep), var(--blue-sky));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.hero .tagline {
+  font-size: clamp(1rem, 2.4vw, 1.15rem);
+  color: var(--text-soft);
+  margin: 0 auto;
+  max-width: 640px;
+}
+
+/* ---- タイル・グリッド（サイズ固定で統一感） ---- */
+.tiles {
+  list-style: none;
+  padding: 0;
+  margin: 40px 0 80px;
+  display: grid;
+  /* 固定幅タイルを中央寄せで自動折返し（拡張しても崩れない） */
+  grid-template-columns: repeat(auto-fit, var(--tile-size));
+  justify-content: center;
+  gap: 22px;
+}
+
+.tile {
+  display: block;
+  width: var(--tile-size);
+  background: var(--surface);
+  backdrop-filter: blur(14px) saturate(120%);
+  -webkit-backdrop-filter: blur(14px) saturate(120%);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+  transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+}
+.tile:hover,
+.tile:focus-visible {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-hover);
+  border-color: var(--blue-sky);
+  outline: none;
+}
+
+/* 画像は高さ固定 → 全タイルが揃う（TAMURA方式） */
+.tile img {
+  display: block;
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+}
+
+.tile .caption {
+  padding: 14px 16px 18px;
+}
+.tile .caption h2 {
+  margin: 0 0 4px;
+  font-size: 1.05rem;
+  color: var(--text);
+}
+.tile .caption p {
+  margin: 0;
+  font-size: 0.85rem;
+  color: var(--text-soft);
+}
+
+/* AIタイルだけ少し強調（現代的な入口） */
+.tile.tile--ai {
+  border-color: rgba(124, 58, 237, 0.35);
+}
+.tile.tile--ai:hover { border-color: #7c3aed; }
+
+/* ---- フッター ---- */
+.site-footer {
+  text-align: center;
+  padding: 40px 0 60px;
+  color: var(--text-soft);
+  font-size: 0.85rem;
+}
+
+/* =========================================================
+   下層ページ（pages/*.html）共通
+   ========================================================= */
+.page-header {
+  padding: 60px 0 20px;
+}
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.9rem;
+  color: var(--text-soft);
+  margin-bottom: 20px;
+}
+.back-link:hover { color: var(--blue); }
+
+.page-title {
+  font-size: clamp(1.8rem, 5vw, 2.6rem);
+  margin: 0 0 8px;
+  color: var(--blue-deep);
+}
+.page-lead { color: var(--text-soft); margin: 0; max-width: 640px; }
+
+.card {
+  background: var(--surface-strong);
+  backdrop-filter: blur(14px) saturate(120%);
+  -webkit-backdrop-filter: blur(14px) saturate(120%);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 28px;
+  margin: 20px 0;
+}
+.card h3 { margin-top: 0; color: var(--blue-deep); }
+
+.placeholder-note {
+  font-size: 0.85rem;
+  color: var(--text-soft);
+  border-left: 3px solid var(--blue-sky);
+  padding-left: 12px;
+  margin: 24px 0;
+}
+
+/* ---- レスポンシブ ---- */
+@media (max-width: 560px) {
+  :root { --tile-size: 100%; }
+  .tiles { grid-template-columns: 1fr; }
+  .hero { padding: 56px 0 28px; }
+}
+
+/* ---- アクセシビリティ：動きを減らす設定を尊重 ---- */
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; scroll-behavior: auto !important; }
+}

@@ -1,0 +1,13 @@
+# OS が作る不要ファイル
+.DS_Store
+Thumbs.db
+ehthumbs.db
+desktop.ini
+
+# エディタ
+*.swp
+*~
+
+# ローカルの一時物・バックアップ
+/backup/
+*.log

@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" role="img" aria-label="だいすけ / d-storage.com のOGP画像">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0b3d91"/>
+      <stop offset="0.5" stop-color="#1e63d0"/>
+      <stop offset="1" stop-color="#38bdf8"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#g)"/>
+  <circle cx="180" cy="120" r="180" fill="#ffffff" opacity="0.10"/>
+  <circle cx="1050" cy="560" r="220" fill="#7dd3fc" opacity="0.22"/>
+  <text x="80" y="300" font-size="96" font-family="sans-serif" font-weight="800" fill="#ffffff">だいすけ</text>
+  <text x="84" y="380" font-size="40" font-family="monospace" fill="#dbeafe">d-storage.com</text>
+  <text x="84" y="450" font-size="34" font-family="sans-serif" fill="#eaf4ff">体験 / 学習 / 好きなもの / 信じるもの</text>
+</svg>

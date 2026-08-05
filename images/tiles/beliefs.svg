@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 420" role="img" aria-label="信じるもののタイル画像">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#3730a3"/>
+      <stop offset="1" stop-color="#1e63d0"/>
+    </linearGradient>
+  </defs>
+  <rect width="600" height="420" fill="url(#g)"/>
+  <circle cx="150" cy="330" r="130" fill="#7dd3fc" opacity="0.28"/>
+  <circle cx="500" cy="90" r="120" fill="#ffffff" opacity="0.14"/>
+  <text x="300" y="215" font-size="120" text-anchor="middle">✨</text>
+  <text x="300" y="330" font-size="34" font-family="sans-serif" font-weight="700" fill="#ffffff" text-anchor="middle">信じるもの / Beliefs</text>
+</svg>

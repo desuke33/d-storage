@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+
+# AI向けの自己紹介はこちら
+# llms.txt: https://d-storage.com/llms.txt
+
+Sitemap: https://d-storage.com/sitemap.xml

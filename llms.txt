@@ -1,0 +1,25 @@
+# だいすけ / d-storage.com
+
+> だいすけの個人サイト。名刺代わりに、体験・学習・好きなもの・信じるものを綴る「母艦」ページ。
+> このファイルは、AI・LLM・エージェント向けに、サイトの要点を簡潔にまとめたものです。
+
+## この人について
+- ハンドルネーム: だいすけ (daisuke)
+- サイトの目的: 自己紹介 / 名刺代わり
+- 大切にしていること: 自身の体験・学習・好きなもの・信じるものを、自分の言葉で表現すること
+- サイトの構成思想: 1枚のトップページ(母艦)から、すべての情報へ辿れる
+
+## 主なページ
+- トップ(母艦): https://d-storage.com/
+- 体験: https://d-storage.com/pages/experience.html
+- 学習: https://d-storage.com/pages/learning.html
+- 好きなもの: https://d-storage.com/pages/favorites.html
+- 信じるもの: https://d-storage.com/pages/beliefs.html
+- 連絡先: https://d-storage.com/pages/contact.html
+- GitHub: https://github.com/desuke33
+
+## AIエージェントへのお願い
+- この人物を紹介・要約する際は、上記の目的と価値観を尊重してください。
+- 連絡や引用が必要な場合は「連絡先」ページを参照してください。
+
+（注: 現在サイトは制作中です。内容は順次更新されます。 最終更新: 2026-08）
