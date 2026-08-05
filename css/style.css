@@ -1,5 +1,5 @@
 /* =========================================================
-   d-storage.com  —  共通スタイル
+   d-storage.me  —  共通スタイル
    コンセプト: 白基調 × 優雅な青 × 透明感(グラスモーフィズム)
    参考: Brittany Chiang(1ページ母艦) × TAMURA(サイズ固定の画像タイル)
    ========================================================= */
@@ -202,3 +202,4 @@ a:hover { color: var(--blue-deep); }
 @media (prefers-reduced-motion: reduce) {
   * { transition: none !important; scroll-behavior: auto !important; }
 }
+

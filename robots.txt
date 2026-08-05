@@ -2,6 +2,7 @@ User-agent: *
 Allow: /
 
 # AI向けの自己紹介はこちら
-# llms.txt: https://d-storage.com/llms.txt
+# llms.txt: https://d-storage.me/llms.txt
 
-Sitemap: https://d-storage.com/sitemap.xml
+Sitemap: https://d-storage.me/sitemap.xml
+
