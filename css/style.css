@@ -39,12 +39,8 @@ body {
                "Yu Gothic", "Meiryo", system-ui, sans-serif;
   color: var(--text);
   line-height: 1.7;
-  /* 透明感の土台：青のグラデーション背景 */
-  background:
-    radial-gradient(1200px 800px at 15% -10%, rgba(125,211,252,0.35), transparent 60%),
-    radial-gradient(1000px 700px at 110% 10%, rgba(30,99,208,0.18), transparent 55%),
-    var(--bg);
-  background-attachment: fixed;
+  /* 透明感の土台：自前生成の「青いボケ(被写界深度)」背景 */
+  background: var(--bg) url("/assets/bg-bokeh.jpg") center center / cover no-repeat fixed;
   min-height: 100vh;
 }
 
