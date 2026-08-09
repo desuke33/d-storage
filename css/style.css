@@ -39,9 +39,9 @@ body {
                "Yu Gothic", "Meiryo", system-ui, sans-serif;
   color: var(--text);
   line-height: 1.7;
-  /* 背景：割れたガラス越しの冬枯れの森と夕空（自前生成） */
+  /* 背景：木漏れ日の森（実写）。上側を濃いめにして白文字を読みやすく */
   background:
-    linear-gradient(rgba(10, 14, 40, 0.28), rgba(10, 14, 40, 0.28)),
+    linear-gradient(180deg, rgba(6, 10, 26, 0.55) 0%, rgba(6, 10, 26, 0.32) 38%, rgba(6, 10, 26, 0.46) 100%),
     url("/assets/bg-forest.jpg") center center / cover no-repeat fixed,
     var(--bg);
   min-height: 100vh;
