@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600" role="img" aria-label="メール（Gmail）">
+  <rect width="600" height="600" fill="#ffffff"/>
+  <g fill="none" stroke="#EA4335" stroke-width="34" stroke-linejoin="round" stroke-linecap="round">
+    <rect x="150" y="195" width="300" height="210" rx="26"/>
+    <path d="M155 215 L300 320 L445 215"/>
+  </g>
+</svg>
