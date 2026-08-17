@@ -10,7 +10,8 @@ import os, re, json, urllib.request, urllib.parse
 ROOT       = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BOOKS_DIR  = os.path.join(ROOT, "books")
 COVERS_DIR = os.path.join(ROOT, "images", "books", "covers")
-os.makedirs(BOOKS_DIR, exist_ok=True); os.makedirs(COVERS_DIR, exist_ok=True)
+NOTES_DIR  = os.path.join(ROOT, "images", "books", "notes")
+os.makedirs(BOOKS_DIR, exist_ok=True); os.makedirs(COVERS_DIR, exist_ok=True); os.makedirs(NOTES_DIR, exist_ok=True)
 
 def load_env():
     p = os.path.join(os.path.dirname(os.path.abspath(__file__)), ".env")
@@ -79,14 +80,19 @@ def rich_to_md(rich):
         s += t
     return s
 
-def fetch_blocks_md(page_id):
-    lines, cursor = [], None
+def fetch_blocks(page_id):
+    """本文を Markdown 化しつつ、本文中の画像URLも集める → (text, [image_url,...])"""
+    lines, images, cursor = [], [], None
     while True:
         url = f"https://api.notion.com/v1/blocks/{page_id}/children?page_size=100"
         if cursor: url += "&start_cursor=" + cursor
         j = http_json(url, NH)
         for b in j.get("results", []):
             bt = b.get("type"); data = b.get(bt, {})
+            if bt == "image":
+                ft = data.get("type"); u = data.get(ft, {}).get("url") if ft in ("file", "external") else None
+                if u: images.append(u)
+                continue
             text = rich_to_md(data.get("rich_text", []))
             if bt == "paragraph":                             lines.append(text)
             elif bt in ("heading_1", "heading_2", "heading_3"): lines.append("**" + text + "**")
@@ -97,7 +103,7 @@ def fetch_blocks_md(page_id):
             elif text:                                        lines.append(text)
         if j.get("has_more"): cursor = j.get("next_cursor")
         else: break
-    return "\n\n".join(l for l in lines if l is not None).strip()
+    return "\n\n".join(l for l in lines if l is not None).strip(), images
 
 def rating_to_num(s):
     n = s.count("★")
@@ -155,9 +161,16 @@ def main():
         genres = read_text(prop(props, "ジャンル", "Genre", "Genres"))
         kanso_p = prop(props, "感想", "Review", "レビュー")
         kanso = full_property_text(pg["id"], kanso_p) if kanso_p else ""
-        note  = fetch_blocks_md(pg["id"])
+        note, images = fetch_blocks(pg["id"])
         body  = "\n\n".join([x for x in [kanso, note] if x.strip()])
         bid = pg["id"].replace("-", "")
+
+        # 本文中の画像を「付属写真」として取得（画面端に表示）
+        photos = []
+        for i, url in enumerate(images, 1):
+            try:
+                download(url, os.path.join(NOTES_DIR, f"{bid}-{i}.jpg")); photos.append(f"{bid}-{i}.jpg")
+            except Exception: pass
 
         fm = ["---", f'title: "{title}"']
         if author: fm.append(f'author: "{author}"')
@@ -165,13 +178,14 @@ def main():
         if rating: fm.append(f'rating: "{rating}"')
         fm.append(f'rating_num: "{rating_to_num(rating)}"')
         if genres: fm.append(f'genres: "{genres}"')
+        if photos: fm.append(f'photos: "{", ".join(photos)}"')
         fm.append("---")
         open(os.path.join(BOOKS_DIR, bid + ".md"), "w", encoding="utf-8").write(
             "\n".join(fm) + "\n\n" + (body or "") + "\n")
         n_book += 1
         got = cover_from_files(props, bid) or cover_by_search(title, author, bid)
         if got: n_cov += 1
-        print(f"  ・{title}  表紙:{'OK' if got else '—'}")
+        print(f"  ・{title}  表紙:{'OK' if got else '—'}  付属写真:{len(photos)}")
 
     print(f"\n取込 {n_book}冊 / 表紙 {n_cov}冊\n次: python tools/build_books.py")
 

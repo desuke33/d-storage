@@ -205,21 +205,49 @@ a:hover { color: var(--blue-deep); }
   align-items: flex-start;
   margin-bottom: 48px;
 }
-.book-cover {
+/* 表紙＋付属写真：スクロールに追従（sticky）する側カラム */
+.book-aside {
+  position: sticky;
+  top: 24px;
   width: 260px;
-  aspect-ratio: 1 / 1;
-  object-fit: cover;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  max-height: calc(100vh - 48px);
+  overflow-y: auto;
+  padding-right: 2px;
+}
+.book-cover,
+.book-photo {
+  display: block;
+  width: 100%;
   border-radius: var(--radius);
   border: 1px solid rgba(255, 255, 255, 0.30);
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
-  flex-shrink: 0;
 }
-.book-review { flex: 1; }
+.book-cover { aspect-ratio: 1 / 1; object-fit: cover; }
+.book-photo-link { display: block; transition: transform .2s ease; }
+.book-photo-link:hover { transform: translateY(-2px); }
+.book-review { flex: 1; min-width: 0; }
 .book-review p { margin: 0 0 1em; color: var(--text); }
 .book-review p:last-child { margin-bottom: 0; }
+
+/* スマホ：側カラムを上部の横スクロール写真ストリップに */
 @media (max-width: 640px) {
   .book-detail { flex-direction: column; }
-  .book-cover { width: 100%; max-width: 320px; margin: 0 auto; }
+  .book-aside {
+    position: static;
+    width: 100%;
+    max-height: none;
+    flex-direction: row;
+    overflow-x: auto;
+    gap: 10px;
+    padding-bottom: 6px;
+    -webkit-overflow-scrolling: touch;
+  }
+  .book-cover, .book-photo { width: auto; height: 190px; flex-shrink: 0; }
+  .book-cover { width: 190px; }
 }
 
 /* ---- 積読：一覧グリッド & 並び替え/絞り込みコントロール ---- */

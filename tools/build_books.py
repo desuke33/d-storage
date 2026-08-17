@@ -15,12 +15,26 @@ ROOT       = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BOOKS_DIR  = os.path.join(ROOT, "books")
 COVERS_DIR = os.path.join(ROOT, "images", "books", "covers")
 CARDS_DIR  = os.path.join(ROOT, "images", "books", "cards")
+NOTES_DIR  = os.path.join(ROOT, "images", "books", "notes")
 PAGES_DIR  = os.path.join(ROOT, "pages")
 BOOKPAGES  = os.path.join(ROOT, "pages", "books")
 CARD_SIZE  = 640
 
-for d in (BOOKS_DIR, COVERS_DIR, CARDS_DIR, BOOKPAGES):
+for d in (BOOKS_DIR, COVERS_DIR, CARDS_DIR, NOTES_DIR, BOOKPAGES):
     os.makedirs(d, exist_ok=True)
+
+def optimize_note(name):
+    """本文の付属写真をWeb用に縮小（最大1100px）。"""
+    p = os.path.join(NOTES_DIR, name)
+    if not os.path.exists(p): return
+    try:
+        im = ImageOps.exif_transpose(Image.open(p)).convert("RGB")
+        w, h = im.size
+        if max(w, h) > 1100:
+            s = 1100 / max(w, h); im = im.resize((int(w * s), int(h * s)), Image.LANCZOS)
+        im.save(p, "JPEG", quality=82, optimize=True, progressive=True)
+    except Exception:
+        pass
 
 def jp_font(size):
     for name in ("meiryo.ttc", "YuGothM.ttc", "YuGothR.ttc", "msgothic.ttc"):
@@ -44,7 +58,7 @@ def parse_book(path):
     return {"id": bid, "title": meta.get("title", bid), "author": meta.get("author", ""),
             "date": meta.get("date", ""), "rating": meta.get("rating", ""),
             "rating_num": meta.get("rating_num", ""), "genres": meta.get("genres", ""),
-            "cover": meta.get("cover", ""), "body": body.strip()}
+            "cover": meta.get("cover", ""), "photos": meta.get("photos", ""), "body": body.strip()}
 
 def md_to_html(md):
     out = []
@@ -190,6 +204,13 @@ def render_list(books):
 
 def render_book(b):
     meta = " ・ ".join([x for x in [b.get("author",""), b.get("date",""), b.get("rating",""), b.get("genres","")] if x])
+    photos = [p.strip() for p in b.get("photos", "").split(",") if p.strip()]
+    for p in photos:
+        optimize_note(p)
+    aside = f'          <img class="book-cover" src="/images/books/cards/{b["id"]}.jpg" alt="{html.escape(b["title"])} の表紙">'
+    for p in photos:
+        aside += ('\n          <a class="book-photo-link" href="/images/books/notes/' + p + '" target="_blank" rel="noopener">'
+                  '<img class="book-photo" src="/images/books/notes/' + p + '" alt="' + html.escape(b["title"]) + ' 本文の写真" loading="lazy"></a>')
     body = f"""{page_head(b['title'], b['title'] + ' の感想')}
     <header class="page-header">
       <a class="back-link" href="/pages/tsundoku.html">← 積読にもどる</a>
@@ -198,7 +219,9 @@ def render_book(b):
     </header>
     <main>
       <div class="book-detail">
-        <img class="book-cover" src="/images/books/cards/{b['id']}.jpg" alt="{html.escape(b['title'])} の表紙">
+        <aside class="book-aside">
+{aside}
+        </aside>
         <article class="book-review card">
 {md_to_html(b['body'])}
         </article>
