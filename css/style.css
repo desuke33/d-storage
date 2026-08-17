@@ -198,6 +198,30 @@ a:hover { color: var(--blue-deep); }
   margin: 24px 0;
 }
 
+/* ---- 積読：本の感想ページ ---- */
+.book-detail {
+  display: flex;
+  gap: 28px;
+  align-items: flex-start;
+  margin-bottom: 48px;
+}
+.book-cover {
+  width: 260px;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  border-radius: var(--radius);
+  border: 1px solid rgba(255, 255, 255, 0.30);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+  flex-shrink: 0;
+}
+.book-review { flex: 1; }
+.book-review p { margin: 0 0 1em; color: var(--text); }
+.book-review p:last-child { margin-bottom: 0; }
+@media (max-width: 640px) {
+  .book-detail { flex-direction: column; }
+  .book-cover { width: 100%; max-width: 320px; margin: 0 auto; }
+}
+
 /* ---- レスポンシブ ---- */
 @media (max-width: 560px) {
   :root { --tile-size: 100%; }

@@ -11,3 +11,7 @@ desktop.ini
 # ローカルの一時物・バックアップ
 /backup/
 *.log
+
+# 秘密情報（Notionトークン等）— 絶対に公開リポジトリへ入れない
+tools/.env
+.env
