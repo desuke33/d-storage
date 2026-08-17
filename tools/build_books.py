@@ -43,6 +43,7 @@ def parse_book(path):
     bid = os.path.splitext(os.path.basename(path))[0]
     return {"id": bid, "title": meta.get("title", bid), "author": meta.get("author", ""),
             "date": meta.get("date", ""), "rating": meta.get("rating", ""),
+            "rating_num": meta.get("rating_num", ""), "genres": meta.get("genres", ""),
             "cover": meta.get("cover", ""), "body": body.strip()}
 
 def md_to_html(md):
@@ -118,31 +119,77 @@ FOOT = """    <footer class="site-footer">
 </html>
 """
 
+def rating_num(b):
+    if b.get("rating_num"):
+        try: return int(b["rating_num"])
+        except Exception: pass
+    return b.get("rating", "").count("★")
+
 def render_list(books):
+    # ジャンル収集（絞込セレクト用）
+    genset = []
+    for b in books:
+        for g in [x.strip() for x in b.get("genres", "").split(",") if x.strip()]:
+            if g not in genset: genset.append(g)
+    genset.sort()
+    genre_opts = "".join(f'<option value="{html.escape(g)}">{html.escape(g)}</option>' for g in genset)
+
     cards = []
     for b in books:
-        cards.append(f"""        <li>
+        cards.append(f"""        <li class="book-card" data-date="{html.escape(b.get('date',''))}" data-rating="{rating_num(b)}" data-genres="{html.escape(b.get('genres',''))}">
           <a class="tile" href="/pages/books/{b['id']}.html">
             <img src="/images/books/cards/{b['id']}.jpg" alt="{html.escape(b['title'])} の表紙">
           </a>
           <span class="tile-label">{html.escape(b['title'])}</span>
         </li>""")
+
+    controls = f"""      <div class="book-controls">
+        <label>並び替え
+          <select id="sortSel">
+            <option value="date-desc">日付（新しい順）</option>
+            <option value="date-asc">日付（古い順）</option>
+            <option value="rating-desc">評価（高い順）</option>
+            <option value="rating-asc">評価（低い順）</option>
+          </select>
+        </label>
+        <label>評価
+          <select id="ratingSel">
+            <option value="0">すべて</option>
+            <option value="5">★5</option>
+            <option value="4">★4以上</option>
+            <option value="3">★3以上</option>
+            <option value="2">★2以上</option>
+            <option value="1">★1以上</option>
+          </select>
+        </label>
+        <label>ジャンル
+          <select id="genreSel"><option value="">すべて</option>{genre_opts}</select>
+        </label>
+        <label>期間
+          <input type="date" id="fromDate"> 〜 <input type="date" id="toDate">
+        </label>
+        <button id="resetBtn" type="button">リセット</button>
+        <span id="countLabel" class="book-count"></span>
+      </div>"""
+
     body = f"""{page_head('積読', '読んだ本と、その感想。')}
     <header class="page-header">
       <a class="back-link" href="/">← 母艦にもどる</a>
       <h1 class="page-title">積読</h1>
-      <p class="page-lead">読んだ本と、その感想。カードをクリックすると感想が開きます。</p>
+      <p class="page-lead">読んだ本と、その感想。並び替え・絞り込みができます。</p>
     </header>
     <main>
-      <ul class="tiles">
+{controls}
+      <ul class="tiles book-grid" id="bookGrid">
 {os.linesep.join(cards) if cards else '        <li><p class="page-lead">まだ登録がありません。</p></li>'}
       </ul>
     </main>
+    <script src="/js/books.js"></script>
 {FOOT}"""
     open(os.path.join(PAGES_DIR, "tsundoku.html"), "w", encoding="utf-8").write(body)
 
 def render_book(b):
-    meta = " ・ ".join([x for x in [b.get("author",""), b.get("date",""), b.get("rating","")] if x])
+    meta = " ・ ".join([x for x in [b.get("author",""), b.get("date",""), b.get("rating",""), b.get("genres","")] if x])
     body = f"""{page_head(b['title'], b['title'] + ' の感想')}
     <header class="page-header">
       <a class="back-link" href="/pages/tsundoku.html">← 積読にもどる</a>

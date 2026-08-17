@@ -222,6 +222,60 @@ a:hover { color: var(--blue-deep); }
   .book-cover { width: 100%; max-width: 320px; margin: 0 auto; }
 }
 
+/* ---- 積読：一覧グリッド & 並び替え/絞り込みコントロール ---- */
+.tiles.book-grid {
+  grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+  justify-content: stretch;
+}
+.book-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 18px;
+  align-items: center;
+  background: var(--surface-strong);
+  backdrop-filter: blur(14px) saturate(120%);
+  -webkit-backdrop-filter: blur(14px) saturate(120%);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 14px 18px;
+  margin: 8px 0 26px;
+}
+.book-controls label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.85rem;
+  color: var(--text);
+}
+.book-controls select,
+.book-controls input[type="date"] {
+  font: inherit;
+  padding: 6px 8px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: #fff;
+  color: var(--text);
+}
+.book-controls button {
+  font: inherit;
+  padding: 6px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  border: 1px solid transparent;
+  background: var(--blue);
+  color: #fff;
+}
+.book-controls button:hover { background: var(--blue-deep); }
+.book-count { font-size: 0.85rem; color: var(--text-soft); margin-left: auto; }
+
+@media (max-width: 560px) {
+  .tiles.book-grid { grid-template-columns: repeat(2, 1fr); gap: 14px; }
+  .tiles.book-grid .tile-label { font-size: 0.8rem; }
+  .book-controls { gap: 10px 12px; padding: 12px 14px; }
+  .book-count { margin-left: 0; }
+}
+
 /* ---- レスポンシブ ---- */
 @media (max-width: 560px) {
   :root { --tile-size: 100%; }
