@@ -142,8 +142,7 @@ def render_list(books):
     open(os.path.join(PAGES_DIR, "tsundoku.html"), "w", encoding="utf-8").write(body)
 
 def render_book(b):
-    meta = " ・ ".join([x for x in [b.get("author",""), b.get("date",""),
-                                    ("★"+b["rating"] if b.get("rating") else "")] if x])
+    meta = " ・ ".join([x for x in [b.get("author",""), b.get("date",""), b.get("rating","")] if x])
     body = f"""{page_head(b['title'], b['title'] + ' の感想')}
     <header class="page-header">
       <a class="back-link" href="/pages/tsundoku.html">← 積読にもどる</a>
