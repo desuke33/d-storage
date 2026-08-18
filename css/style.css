@@ -456,3 +456,88 @@ body {
   .hero > *, .tiles > li, .recent, .book-controls, .book-detail { animation: none !important; }
   #buddy-dog .dog-bob, #buddy-dog .dog-tail { animation: none !important; }
 }
+
+/* ============================================================
+   モンハン風アイテムボックス（左=詳細 固定幅 / 右=タイル縦スクロール）
+   ============================================================ */
+.item-box {
+  display: flex;
+  margin: 30px auto 44px;
+  max-width: 940px;
+  background: linear-gradient(#241a11, #191009);
+  border-radius: 12px;
+  border: 4px solid #caa15a;                 /* 大きな縁取り */
+  box-shadow: 0 0 0 5px #14100a,
+              inset 0 0 0 2px #6e5326,
+              0 24px 60px rgba(0,0,0,.6);
+  overflow: hidden;
+}
+/* 左：選択アイテムの詳細（固定幅） */
+.ib-detail {
+  width: 300px;
+  flex-shrink: 0;
+  background: linear-gradient(#221913, #170e08);
+  border-right: 4px solid #6e5326;
+  padding: 22px;
+}
+.ib-detail-inner {
+  border: 2px solid rgba(202,161,90,.5);
+  border-radius: 10px;
+  background: rgba(20,14,8,.55);
+  padding: 18px;
+  text-align: center;
+  min-height: 280px;
+}
+.ib-icon {
+  width: 156px; height: 156px; margin: 0 auto 14px;
+  border-radius: 10px; overflow: hidden;
+  border: 2px solid rgba(202,161,90,.6);
+  box-shadow: inset 0 0 0 2px #12100a, 0 6px 14px rgba(0,0,0,.5);
+}
+.ib-icon img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.ib-name {
+  font-family: "Cinzel", "Yu Mincho", "Hiragino Mincho ProN", serif;
+  color: #f4d98b; font-size: 1.3rem; margin: 0 0 8px; letter-spacing: .04em;
+}
+.ib-desc { color: #e7dcc4; font-size: .9rem; line-height: 1.85; margin: 0 0 16px; text-align: left; }
+.ib-go {
+  display: inline-block; padding: 8px 20px; border-radius: 8px;
+  background: #b5762b; color: #fff; border: 1px solid #e0b463; font-weight: 600; font-size: .9rem;
+}
+.ib-go:hover { background: #7a4a1e; color: #fff; }
+
+/* 右：タイルのグリッド（縦スクロール） */
+.ib-grid { flex: 1; padding: 18px; max-height: 66vh; overflow-y: auto; }
+.tiles.ib-tiles {
+  margin: 0;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: 14px;
+  justify-content: stretch;
+}
+.ib-slot .tile {
+  border: 2px solid rgba(202,161,90,.45);
+  box-shadow: inset 0 0 0 3px #14100a, 0 6px 14px rgba(0,0,0,.5);
+  background: #12100a;
+}
+.ib-slot .tile:hover { border-color: #e0b463; }
+.ib-slot.is-sel .tile {
+  border-color: #f4d98b;
+  box-shadow: inset 0 0 0 3px #14100a, 0 0 0 3px rgba(244,217,139,.55);
+}
+/* スクロールバー（狩人風） */
+.ib-grid::-webkit-scrollbar { width: 10px; }
+.ib-grid::-webkit-scrollbar-track { background: #14100a; }
+.ib-grid::-webkit-scrollbar-thumb { background: #6e5326; border-radius: 6px; border: 2px solid #14100a; }
+
+/* レスポンシブ：スマホは詳細を上・グリッドを下 */
+@media (max-width: 640px) {
+  .item-box { flex-direction: column; }
+  .ib-detail { width: 100%; border-right: none; border-bottom: 4px solid #6e5326; }
+  .ib-detail-inner { min-height: 0; display: flex; gap: 14px; align-items: center; text-align: left; }
+  .ib-icon { width: 92px; height: 92px; margin: 0; flex-shrink: 0; }
+  .ib-desc { font-size: .85rem; margin: 0; }
+  .ib-name { font-size: 1.1rem; margin: 0 0 4px; }
+  .ib-go { display: none; }                 /* スマホはタップで開くため非表示 */
+  .ib-grid { max-height: none; }
+  .tiles.ib-tiles { grid-template-columns: repeat(3, 1fr); }
+}

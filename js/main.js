@@ -62,3 +62,36 @@ document.querySelectorAll('#year').forEach(function (el) {
   if (reduce) { dog.style.transform = 'translateX(24px)'; }
   else { requestAnimationFrame(frame); }
 })();
+
+/* =========================================================
+   アイテムボックス：スロットにホバー/フォーカスで左の詳細を更新
+   （クリックは通常どおりリンク遷移）
+   ========================================================= */
+(function () {
+  var box = document.querySelector('.item-box');
+  if (!box) return;
+  var img  = document.getElementById('ibImg');
+  var name = document.getElementById('ibName');
+  var desc = document.getElementById('ibDesc');
+  var go   = document.getElementById('ibGo');
+  var slots = Array.prototype.slice.call(box.querySelectorAll('.ib-slot'));
+
+  function select(li) {
+    var a  = li.querySelector('a.tile');
+    var im = li.querySelector('img');
+    var lb = li.querySelector('.tile-label');
+    if (im && img)  img.src = im.getAttribute('src');
+    if (lb && name) name.textContent = lb.textContent;
+    if (desc) desc.textContent = li.getAttribute('data-desc') || '';
+    if (a && go) go.setAttribute('href', a.getAttribute('href'));
+    slots.forEach(function (s) { s.classList.remove('is-sel'); });
+    li.classList.add('is-sel');
+  }
+
+  slots.forEach(function (li) {
+    var a = li.querySelector('a.tile');
+    li.addEventListener('pointerenter', function () { select(li); });
+    if (a) a.addEventListener('focus', function () { select(li); });
+  });
+  if (slots[0]) select(slots[0]);
+})();

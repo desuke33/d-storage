@@ -55,44 +55,57 @@
 
     <!-- 7枚のタイル（画像リンク）。増やす時はこの <li> を複製するだけ -->
     <main>
-      <ul class="tiles">
+      <!-- アイテムボックス：左=選択の詳細（固定幅）／右=タイル縦スクロール -->
+      <section class="item-box">
+        <aside class="ib-detail">
+          <div class="ib-detail-inner">
+            <div class="ib-icon"><img id="ibImg" src="/images/tiles/photo-sea.jpg" alt=""></div>
+            <h2 class="ib-name" id="ibName">体験</h2>
+            <p class="ib-desc" id="ibDesc">これまで歩いてきた道のりの記録。旅・出会い・転機が眠る巻物。</p>
+            <a class="ib-go" id="ibGo" href="/pages/experience.html">開く →</a>
+          </div>
+        </aside>
+        <div class="ib-grid">
+          <ul class="tiles ib-tiles">
 
-        <li>
-          <a class="tile" href="/pages/experience.html">
-            <img src="/images/tiles/photo-sea.jpg" alt="体験のページへ。海の桟橋を友と歩く写真。これまで経験してきたことを綴ります。">
-          </a>
-          <span class="tile-label">体験</span>
-        </li>
+            <li class="ib-slot" data-desc="これまで歩いてきた道のりの記録。旅・出会い・転機が眠る巻物。">
+              <a class="tile" href="/pages/experience.html">
+                <img src="/images/tiles/photo-sea.jpg" alt="体験のページへ。海の桟橋を友と歩く写真。これまで経験してきたことを綴ります。">
+              </a>
+              <span class="tile-label">体験</span>
+            </li>
 
-        <li>
-          <a class="tile" href="/pages/tsundoku.html">
-            <img src="/images/tiles/photo-bike.jpg" alt="積読のページへ。富士山と湖を背にしたバイクの写真。読んだ本のカード一覧が開きます。">
-          </a>
-          <span class="tile-label">積読</span>
-        </li>
+            <li class="ib-slot" data-desc="読んだ本が並ぶ書架。感想・評価・ジャンルで絞り込める。">
+              <a class="tile" href="/pages/tsundoku.html">
+                <img src="/images/tiles/photo-bike.jpg" alt="積読のページへ。富士山と湖を背にしたバイクの写真。読んだ本のカード一覧が開きます。">
+              </a>
+              <span class="tile-label">積読</span>
+            </li>
 
-        <li>
-          <a class="tile" href="/pages/favorites.html">
-            <img src="/images/tiles/photo-bornfire.jpg" alt="好きなもののページへ。焚き火でキャンプ飯を作る写真。心惹かれるもの・偏愛する時間を集めます。">
-          </a>
-          <span class="tile-label">好きなもの</span>
-        </li>
+            <li class="ib-slot" data-desc="心惹かれるもの、偏愛の品を集めた小箱。">
+              <a class="tile" href="/pages/favorites.html">
+                <img src="/images/tiles/photo-bornfire.jpg" alt="好きなもののページへ。焚き火でキャンプ飯を作る写真。心惹かれるもの・偏愛する時間を集めます。">
+              </a>
+              <span class="tile-label">好きなもの</span>
+            </li>
 
-        <li>
-          <a class="tile" href="/pages/beliefs.html">
-            <img src="/images/tiles/photo-river.jpg" alt="刺さりもののページへ。川で手を合わせ祈る写真。心に刺さったものを綴ります。">
-          </a>
-          <span class="tile-label">刺さりもの</span>
-        </li>
+            <li class="ib-slot" data-desc="心に刺さった言葉と価値観。狩人の信条。">
+              <a class="tile" href="/pages/beliefs.html">
+                <img src="/images/tiles/photo-river.jpg" alt="刺さりもののページへ。川で手を合わせ祈る写真。心に刺さったものを綴ります。">
+              </a>
+              <span class="tile-label">刺さりもの</span>
+            </li>
 
-        <li>
-          <a class="tile tile--ai" href="/llms.txt">
-            <img src="/images/tiles/photo-travel.jpg" alt="AI向け自己紹介 llms.txt へ。雪の日の仲間との集合写真。AIエージェント用の入口。">
-          </a>
-          <span class="tile-label">For AI</span>
-        </li>
+            <li class="ib-slot" data-desc="AIのための自己紹介書（llms.txt）。来訪した使い魔に手渡す一枚。">
+              <a class="tile tile--ai" href="/llms.txt">
+                <img src="/images/tiles/photo-travel.jpg" alt="AI向け自己紹介 llms.txt へ。雪の日の仲間との集合写真。AIエージェント用の入口。">
+              </a>
+              <span class="tile-label">For AI</span>
+            </li>
 
-      </ul>
+          </ul>
+        </div>
+      </section>
       <!-- RECENT_START -->
       <section class="recent">
         <h2 class="recent-title">最近読んだ本</h2>
