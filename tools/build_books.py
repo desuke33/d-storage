@@ -230,6 +230,28 @@ def render_book(b):
 {FOOT}"""
     open(os.path.join(BOOKPAGES, b["id"] + ".html"), "w", encoding="utf-8").write(body)
 
+def inject_recent(books, n=3):
+    """ホーム index.html に「最近読んだ本」3冊を注入（RECENT_START/END の間）。"""
+    idx = os.path.join(ROOT, "index.html")
+    if not os.path.exists(idx):
+        return
+    txt = open(idx, encoding="utf-8").read()
+    if "RECENT_START" not in txt:
+        return
+    recent = sorted([b for b in books if b.get("date")], key=lambda b: b["date"], reverse=True)[:n]
+    items = ""
+    for b in recent:
+        items += (f'\n          <a class="shelf-book" href="/pages/books/{b["id"]}.html" title="{html.escape(b["title"])}">'
+                  f'<img src="/images/books/cards/{b["id"]}.jpg" alt="{html.escape(b["title"])}"></a>')
+    block = ('<!-- RECENT_START -->\n'
+             '      <section class="recent">\n'
+             '        <h2 class="recent-title">最近読んだ本</h2>\n'
+             '        <div class="shelf">' + items + '\n        </div>\n'
+             '      </section>\n'
+             '      <!-- RECENT_END -->')
+    txt = re.sub(r"<!-- RECENT_START -->.*?<!-- RECENT_END -->", lambda m: block, txt, flags=re.S)
+    open(idx, "w", encoding="utf-8").write(txt)
+
 def main():
     paths = sorted(glob.glob(os.path.join(BOOKS_DIR, "*.md")))
     books = [parse_book(p) for p in paths]
@@ -238,7 +260,8 @@ def main():
         if make_card_image(b): missing.append(b)
         render_book(b)
     render_list(books)
-    print(f"生成: {len(books)}冊 -> pages/tsundoku.html, pages/books/*.html, images/books/cards/*.jpg")
+    inject_recent(books)
+    print(f"生成: {len(books)}冊 -> pages/tsundoku.html, pages/books/*.html, images/books/cards/*.jpg + ホームに最近3冊")
     if missing:
         print("\n[表紙を自動取得できなかった本（プレースホルダで生成）]")
         for b in missing:
