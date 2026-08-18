@@ -162,7 +162,7 @@ def main():
         kanso_p = prop(props, "感想", "Review", "レビュー")
         kanso = full_property_text(pg["id"], kanso_p) if kanso_p else ""
         note, images = fetch_blocks(pg["id"])
-        body  = "\n\n".join([x for x in [kanso, note] if x.strip()])
+        body = note  # ページ本文のみ（感想プロパティは非表示）
         bid = pg["id"].replace("-", "")
 
         # 本文中の画像を「付属写真」として取得（画面端に表示）
