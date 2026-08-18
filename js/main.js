@@ -88,10 +88,25 @@ document.querySelectorAll('#year').forEach(function (el) {
     li.classList.add('is-sel');
   }
 
+  var locked = null;
+  function lock(li) {
+    locked = li;
+    select(li);
+    slots.forEach(function (s) { s.classList.remove('is-locked'); });
+    li.classList.add('is-locked');
+  }
   slots.forEach(function (li) {
     var a = li.querySelector('a.tile');
-    li.addEventListener('pointerenter', function () { select(li); });
-    if (a) a.addEventListener('focus', function () { select(li); });
+    // ホバー中：未ロックなら、当たっているカードを下見表示
+    li.addEventListener('pointerenter', function () { if (!locked) select(li); });
+    if (a) {
+      a.addEventListener('focus', function () { if (!locked) select(li); });
+      a.addEventListener('click', function (e) {
+        if (locked === li) return;   // 2回目：ロック中のカード → そのまま遷移
+        e.preventDefault();          // 1回目：ロックして詳細を固定（遷移しない）
+        lock(li);
+      });
+    }
   });
-  if (slots[0]) select(slots[0]);
+  if (slots[0]) select(slots[0]);    // 初期表示（未ロック：ホバーで変わる）
 })();
