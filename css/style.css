@@ -437,3 +437,45 @@ a:hover { color: var(--blue-deep); }
 /* アイテムボックス：背景・外枠・囲む線を撤去（カードだけが浮く） */
 .item-box { background: transparent; border: none; box-shadow: none; overflow: visible; }
 .ib-detail { background: transparent; border-right: none; }
+
+/* ============================================================
+   温泉：1画面ギャラリー（絞り込みバー＋カード）
+   ============================================================ */
+.onsen-filters{
+  display:flex; flex-wrap:wrap; gap:12px 16px; align-items:center;
+  position:sticky; top:8px; z-index:5;
+  background:var(--surface-strong);
+  backdrop-filter:blur(14px) saturate(120%); -webkit-backdrop-filter:blur(14px) saturate(120%);
+  border:1px solid var(--border); border-radius:var(--radius); box-shadow:var(--shadow);
+  padding:14px 18px; margin:6px 0 20px;
+}
+.onsen-filters label{display:inline-flex;align-items:center;gap:6px;font-size:.85rem;color:var(--text)}
+.onsen-filters select{font:inherit;padding:6px 8px;border-radius:8px;border:1px solid var(--border);background:#fff;color:var(--text)}
+.onsen-filters button{font:inherit;padding:6px 14px;border-radius:8px;cursor:pointer;border:1px solid transparent;background:var(--blue);color:#fff}
+.onsen-filters button:hover{background:var(--blue-deep)}
+.onsen-count{font-size:.85rem;color:var(--text-soft);margin-left:auto}
+
+.onsen-grid{list-style:none;padding:0;margin:0 0 70px;display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:20px}
+.onsen-card{
+  background:var(--surface-strong);
+  backdrop-filter:blur(10px) saturate(120%); -webkit-backdrop-filter:blur(10px) saturate(120%);
+  border:2px solid #e0b463; border-radius:var(--radius); overflow:hidden;
+  box-shadow:0 10px 26px rgba(11,61,145,.28); transition:transform .2s ease, box-shadow .2s ease;
+}
+.onsen-card:hover{transform:translateY(-4px); box-shadow:0 16px 36px rgba(11,61,145,.36)}
+.onsen-photo{aspect-ratio:16/10;overflow:hidden}
+.onsen-photo img{width:100%;height:100%;object-fit:cover;display:block}
+.onsen-body{padding:14px 16px 16px}
+.onsen-body h3{margin:0 0 8px;font-size:1.05rem;color:var(--blue-deep)}
+.badges{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px}
+.badge{font-size:.72rem;padding:3px 9px;border-radius:999px;background:rgba(30,99,208,.12);color:var(--blue-deep);border:1px solid rgba(30,99,208,.25)}
+.badge.b-q{background:rgba(14,138,138,.14);color:#0a6f6f;border-color:rgba(14,138,138,.3)}
+.badge.b-stay{background:rgba(176,80,180,.12);color:#8a2f8a;border-color:rgba(176,80,180,.3)}
+.badge.b-stay.day{background:rgba(224,150,40,.14);color:#9a6f24;border-color:rgba(224,150,40,.35)}
+.onsen-memo{margin:0;font-size:.88rem;color:var(--text);line-height:1.75}
+
+@media (max-width:560px){
+  .onsen-filters{gap:10px 12px;padding:12px 14px}
+  .onsen-count{margin-left:0}
+  .onsen-grid{grid-template-columns:1fr;gap:16px}
+}

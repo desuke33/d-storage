@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>温泉 | D-STORAGE</title>
+  <meta name="description" content="訪れた温泉の記録。泉質・環境・時期・宿泊・車などの条件で絞り込めるギャラリー。">
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <div class="wrap">
+    <header class="page-header">
+      <a class="back-link" href="/">← 母艦にもどる</a>
+      <h1 class="page-title">温泉</h1>
+      <p class="page-lead">訪れた湯の記録。条件で絞り込んで、その日の一湯を見つける。</p>
+    </header>
+
+    <main>
+      <!-- 絞り込みバー（1画面で操作） -->
+      <div class="onsen-filters" id="filters">
+        <label>時期
+          <select data-key="season"><option value="">すべて</option>
+            <option>春</option><option>夏</option><option>秋</option><option>冬</option></select>
+        </label>
+        <label>泉質
+          <select data-key="quality"><option value="">すべて</option>
+            <option>単純温泉</option><option>硫黄泉</option><option>塩化物泉</option><option>炭酸水素塩泉</option><option>酸性泉</option></select>
+        </label>
+        <label>環境
+          <select data-key="env"><option value="">すべて</option>
+            <option>山</option><option>海</option><option>川</option><option>渓谷</option><option>街</option></select>
+        </label>
+        <label>宿泊
+          <select data-key="stay"><option value="">すべて</option>
+            <option>日帰り</option><option>泊り</option></select>
+        </label>
+        <label>アクセス
+          <select data-key="car"><option value="">すべて</option>
+            <option value="車">車で</option><option value="公共">公共交通</option></select>
+        </label>
+        <label>観光地
+          <select data-key="spot"><option value="">すべて</option>
+            <option value="あり">近くにあり</option><option value="なし">なし</option></select>
+        </label>
+        <button id="resetBtn" type="button">リセット</button>
+        <span id="count" class="onsen-count"></span>
+      </div>
+
+      <p class="placeholder-note">※ 下はデザイン確認用の<strong>サンプル</strong>です。Notionの温泉DBを用意すれば、積読と同じ方式で自動で入れ替わります。</p>
+
+      <ul class="onsen-grid" id="grid">
+        <li class="onsen-card" data-season="秋" data-quality="硫黄泉" data-env="山" data-stay="泊り" data-car="車" data-spot="あり">
+          <div class="onsen-photo"><img src="/images/tiles/photo-river.jpg" alt="サンプル温泉A"></div>
+          <div class="onsen-body">
+            <h3>山あいの秘湯（サンプル）</h3>
+            <div class="badges"><span class="badge b-q">硫黄泉</span><span class="badge">山</span><span class="badge b-stay">泊り</span><span class="badge">秋</span><span class="badge">車</span></div>
+            <p class="onsen-memo">白濁の硫黄泉。紅葉の渓谷を眺めながらの露天が最高だった。</p>
+          </div>
+        </li>
+        <li class="onsen-card" data-season="冬" data-quality="単純温泉" data-env="海" data-stay="日帰り" data-car="公共" data-spot="なし">
+          <div class="onsen-photo"><img src="/images/tiles/photo-sea.jpg" alt="サンプル温泉B"></div>
+          <div class="onsen-body">
+            <h3>海辺の湯（サンプル）</h3>
+            <div class="badges"><span class="badge b-q">単純温泉</span><span class="badge">海</span><span class="badge b-stay day">日帰り</span><span class="badge">冬</span><span class="badge">公共交通</span></div>
+            <p class="onsen-memo">駅から歩ける気軽な日帰り湯。冬の海を見ながら温まる。</p>
+          </div>
+        </li>
+        <li class="onsen-card" data-season="夏" data-quality="炭酸水素塩泉" data-env="川" data-stay="日帰り" data-car="車" data-spot="あり">
+          <div class="onsen-photo"><img src="/images/tiles/photo-bornfire.jpg" alt="サンプル温泉C"></div>
+          <div class="onsen-body">
+            <h3>川沿いの露天（サンプル）</h3>
+            <div class="badges"><span class="badge b-q">炭酸水素塩泉</span><span class="badge">川</span><span class="badge b-stay day">日帰り</span><span class="badge">夏</span><span class="badge">車</span></div>
+            <p class="onsen-memo">とろとろの美肌の湯。近くの滝も観光できて満足。</p>
+          </div>
+        </li>
+        <li class="onsen-card" data-season="春" data-quality="塩化物泉" data-env="街" data-stay="泊り" data-car="公共" data-spot="あり">
+          <div class="onsen-photo"><img src="/images/tiles/photo-travel.jpg" alt="サンプル温泉D"></div>
+          <div class="onsen-body">
+            <h3>温泉街の宿（サンプル）</h3>
+            <div class="badges"><span class="badge b-q">塩化物泉</span><span class="badge">街</span><span class="badge b-stay">泊り</span><span class="badge">春</span><span class="badge">公共交通</span></div>
+            <p class="onsen-memo">湯めぐりが楽しい温泉街。食べ歩きも観光もできる定番。</p>
+          </div>
+        </li>
+      </ul>
+    </main>
+
+    <footer class="site-footer">
+      <p>&copy; <span id="year">2026</span> D-STORAGE / d-storage.me</p>
+    </footer>
+  </div>
+  <script src="/js/main.js"></script>
+  <script>
+  (function(){
+    var grid=document.getElementById('grid');
+    var cards=[].slice.call(grid.querySelectorAll('.onsen-card'));
+    var selects=[].slice.call(document.querySelectorAll('#filters select'));
+    var count=document.getElementById('count');
+    function apply(){
+      var f={}; selects.forEach(function(s){ if(s.value) f[s.dataset.key]=s.value; });
+      var shown=0;
+      cards.forEach(function(c){
+        var ok=Object.keys(f).every(function(k){ return c.getAttribute('data-'+k)===f[k]; });
+        c.style.display=ok?'':'none'; if(ok)shown++;
+      });
+      count.textContent=shown+' 件';
+    }
+    selects.forEach(function(s){ s.addEventListener('change',apply); });
+    document.getElementById('resetBtn').addEventListener('click',function(){
+      selects.forEach(function(s){ s.value=''; }); apply();
+    });
+    apply();
+  })();
+  </script>
+</body>
+</html>
