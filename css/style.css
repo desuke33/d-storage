@@ -422,3 +422,18 @@ a:hover { color: var(--blue-deep); }
   .hero > *, .tiles > li, .item-box, .recent, .book-controls, .book-detail { animation:none !important; }
   #buddy-dog .dog-bob, #buddy-dog .dog-tail { animation:none !important; }
 }
+
+/* ============================================================
+   カードは金色の枠のみ／箱の背景・外枠は無し
+   ============================================================ */
+.tile { border: 2px solid #e0b463; }
+.ib-slot .tile { border: 2px solid #e0b463; }
+.tile:hover, .tile:focus-visible { border-color: #f4d98b; }
+.ib-slot .tile:hover { border-color: #f4d98b; }
+.ib-slot.is-sel .tile { border-color:#f4d98b; box-shadow:0 0 0 2px rgba(224,180,99,.55); }
+.ib-slot.is-locked .tile { border-color:#ffe08a; box-shadow:0 0 0 3px rgba(255,214,120,.9); }
+.tile.tile--ai { border-color:#e0b463; }   /* AIタイルも金枠に統一 */
+
+/* アイテムボックス：背景・外枠・囲む線を撤去（カードだけが浮く） */
+.item-box { background: transparent; border: none; box-shadow: none; overflow: visible; }
+.ib-detail { background: transparent; border-right: none; }
